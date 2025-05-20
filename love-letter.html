@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Love Heart Animation (Slow)</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000016;
+      overflow: hidden;
+      color: pink;
+    }
+
+    canvas {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="heartCanvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById("heartCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    let t = 0;
+    const message = "I Love You Bb";
+    const fontSize = 16;
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 22, 0.2)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.font = fontSize + "px Arial";
+      ctx.fillStyle = "hotpink";
+      ctx.textAlign = "center";
+
+      for (let i = 0; i < 200; i++) {
+        const angle = i * 0.1 + t;
+        const x = 16 * Math.pow(Math.sin(angle), 3);
+        const y = -(
+          13 * Math.cos(angle) -
+          5 * Math.cos(2 * angle) -
+          2 * Math.cos(3 * angle) -
+          Math.cos(4 * angle)
+        );
+
+        const posX = canvas.width / 2 + x * 20;
+        const posY = canvas.height / 2 + y * 20;
+
+        ctx.fillText(message, posX, posY);
+      }
+
+      t += 0.002; // 👈 Slower speed here
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
+</body>
+</html>
